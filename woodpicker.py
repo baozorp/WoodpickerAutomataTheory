@@ -23,56 +23,56 @@ class Woodpicker(turtle.Turtle):
 
     def stateManager(self):
         print(self.state)
-        match self.state:
-            case "Feed":
-                if self.forest.soundOfNestlings and not self.forest.roar:
-                    self.feed()
-                    self.state = "Flight"
-                else:
-                    self.state = "Defense"
 
-            case "Flight":
-                if self.distance(self.propose) > 40:
-                    self.flying()
-                    self.state = "Flight"
+        if self.state == "Feed":
+            if self.forest.soundOfNestlings and not self.forest.roar:
+                self.feed()
+                self.state = "Flight"
+            else:
+                self.state = "Defense"
 
-                elif self.distance(self.propose) < 40 \
-                        and self.isBoot \
-                        and not self.forest.roar:
-                    self.state = "Feed"
-                elif self.distance(self.propose) < 40 \
-                        and not self.isBoot \
-                        and not self.forest.roar:
-                    self.state = "Search"
-                elif self.distance(self.propose) < 40 and self.forest.roar:
-                    self.state = "Defense"
+        if self.state == "Flight":
+            if self.distance(self.propose) > 40:
+                self.flying()
+                self.state = "Flight"
 
-            case "Search":
-                self.shape("pictures/woodpicker3.gif")
-                sleep(1)
-                if self.propose.isWorm:
-                    self.state = "Booty"
-                else:
-                    self.search()
-                    self.state = "Flight"
+            elif self.distance(self.propose) < 40 \
+                    and self.isBoot \
+                    and not self.forest.roar:
+                self.state = "Feed"
+            elif self.distance(self.propose) < 40 \
+                    and not self.isBoot \
+                    and not self.forest.roar:
+                self.state = "Search"
+            elif self.distance(self.propose) < 40 and self.forest.roar:
+                self.state = "Defense"
 
-            case "Booty":
-                if self.propose.knocksForBoot > 0 and not self.forest.roar:
-                    self.booty()
-                    self.state = "Booty"
-                else:
-                    self.propose = self.forest.nest
-                    self.startPosition = self.position()
-                    self.state = "Flight"
+        if self.state == "Search":
+            self.shape("pictures/woodpicker3.gif")
+            sleep(1)
+            if self.propose.isWorm:
+                self.state = "Booty"
+            else:
+                self.search()
+                self.state = "Flight"
 
-            case "Defense":
-                if self.forest.roar:
-                    self.state = "Defense"
-                    self.defense()
-                elif self.isBoot:
-                    self.state = "Feed"
-                else:
-                    self.state = "Flight"
+        if self.state == "Booty":
+            if self.propose.knocksForBoot > 0 and not self.forest.roar:
+                self.booty()
+                self.state = "Booty"
+            else:
+                self.propose = self.forest.nest
+                self.startPosition = self.position()
+                self.state = "Flight"
+
+        if self.state == "Defense":
+            if self.forest.roar:
+                self.state = "Defense"
+                self.defense()
+            elif self.isBoot:
+                self.state = "Feed"
+            else:
+                self.state = "Flight"
 
     def defense(self):
         if self.forest.fox.knoxForRunning == 0:

@@ -22,19 +22,18 @@ class Fox(turtle.Turtle):
 
     def hide(self):
         rand = random.randint(1, 4)
-        match rand:
-            case 1:
-                self.widthh = -self.forest.width - 200
-                self.heightt = -self.forest.height - 200
-            case 2:
-                self.widthh = -self.forest.width - 200
-                self.heightt = self.forest.height + 200
-            case 3:
-                self.widthh = self.forest.width + 200
-                self.heightt = -self.forest.height - 200
-            case 4:
-                self.widthh = self.forest.width + 200
-                self.heightt = self.forest.height + 200
+        if rand == 1:
+            self.widthh = -self.forest.width - 200
+            self.heightt = -self.forest.height - 200
+        if 2:
+            self.widthh = -self.forest.width - 200
+            self.heightt = self.forest.height + 20
+        if 3:
+            self.widthh = self.forest.width + 200
+            self.heightt = -self.forest.height - 200
+        if 4:
+            self.widthh = self.forest.width + 200
+            self.heightt = self.forest.height + 200
         self.speed(5)
         self.knoxForRunning = random.randint(5, 10)
         self.goto(self.widthh, self.heightt )
